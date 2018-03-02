@@ -1,32 +1,37 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 import { AppComponent } from './app.component';
-describe('AppComponent', () => {
+import { async } from '@angular/core/testing';
 
-  it('Primer test', () => {
-    expect(true).toBe(true);
-  });
-  /*
-  beforeEach(async(() => {
+describe('AppComponent', () => {
+  let comp: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
+
+  beforeEach(async() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
+      declarations: [ AppComponent ]
+    }).compileComponents()
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    de = fixture.debugElement.query(By.css('h1'));
+    el = de.nativeElement;
+    comp = fixture.componentInstance;
+  });
+
+  it('El primer test component', () => {
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
-  }));*/
+    expect(el.textContent).toContain(comp.title); //el (Componente HTML) - comp (Componente TS)
+  });
+
+  it('Cambiar el titulo', () =>{
+    comp.title = 'Este es el segundo titulo';
+    fixture.detectChanges();
+    expect(el.textContent).toContain(comp.title);
+  });
+
 });
